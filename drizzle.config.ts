@@ -1,12 +1,12 @@
-import { type Config } from 'drizzle-kit';
+import { type Config } from "drizzle-kit";
 
-import { env } from '@/env';
+import { env } from "@/env";
 
 export default {
-  schema: './src/server/db/schema.ts',
-  driver: 'mysql2',
+  schema: "./src/server/db/schema.ts",
+  driver: "mysql2",
   dbCredentials: {
     connectionString: env.DATABASE_URL,
   },
-  tablesFilter: ['docser_*'],
+  tablesFilter: ["nexchange_*"],
 } satisfies Config;
