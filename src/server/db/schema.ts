@@ -1,6 +1,7 @@
 import { relations, sql } from "drizzle-orm";
 import {
   bigint,
+  date,
   index,
   int,
   mysqlTableCreator,
@@ -47,9 +48,29 @@ export const users = mysqlTable("user", {
   image: varchar("image", { length: 255 }),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
+export const usersRelations = relations(users, ({ many, one }) => ({
   accounts: many(accounts),
   sessions: many(sessions),
+  userInfo: one(userInfo)
+}));
+
+export const userInfo = mysqlTable(
+  "userInfo",
+  {
+    id: bigint("id", { mode: "number" }).primaryKey().autoincrement(),
+    userId: varchar("userId", { length: 255 }).unique(),
+    firstname: varchar("firstame", { length: 255 }).notNull(),
+    lastname: varchar("lastname", { length: 255 }).notNull(),
+    cin: varchar("cin", { length: 12 }).notNull().unique(), 
+    birth_Date: date('birth_Date').notNull(),
+  },
+  (userInfo) => ({
+    userIdIdx: index("userId_idx").on(userInfo.userId),
+  })
+);
+
+export const userInfoRelations = relations(userInfo, ({ one }) => ({
+  user: one(users, { fields: [userInfo.userId], references: [users.id] }),
 }));
 
 export const accounts = mysqlTable(

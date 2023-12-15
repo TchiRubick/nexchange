@@ -42,6 +42,9 @@ export const UserAccountNav = ({ user }: UserAccountNavProps) => {
         <DropdownMenuItem asChild>
           <Link href="/contractor/billing" className="cursor-pointer">Billing</Link>
         </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/settings/infos" className="cursor-pointer">Settings</Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
